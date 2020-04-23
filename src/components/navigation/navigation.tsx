@@ -14,6 +14,7 @@ export const Navigaiton = styled.div`
   flex-direction: row;
   align-items: center;
   position: fixed;
+  z-index: 100;
 `;
 
 export const Menu = styled.img`

@@ -1,32 +1,50 @@
-import React, { createContext, useState } from "react";
+import { createGlobalState } from "react-hooks-global-state";
 
-export type message = {
-  sender: string;
-  channel: string;
-  message: string;
-};
-
-export type ContextData = {
-  messages: message[];
-  setMessage: any;
-  history: string[];
-  setHistory: any;
-  authed: Boolean;
-};
-
-export const Context = createContext({});
-
-export default ({ children }: { children: any }) => {
-  const [messages, setMessage] = useState([]);
-  const [history, setHistory] = useState([]);
-
-  const contextData: ContextData = {
-    messages,
-    setMessage,
-    history,
-    setHistory,
-    authed: false,
+export type State = {
+  socket: SocketIOClient.Socket | undefined;
+  banner: {
+    visible: Boolean;
+    level?: string;
+    message: string;
+    ok: Boolean;
+    okAction?: () => {};
+    cancel: Boolean;
+    cancelAction?: () => {};
   };
-
-  return <Context.Provider value={contextData}>{children}</Context.Provider>;
+  muWindow: {
+    history: string[];
+    input: string;
+    output: JSX.Element[];
+    visible: Boolean;
+    last?: string;
+  };
+  login: Boolean;
+  token: string;
+  player: {};
+  user: string;
+  password: string;
+  title: string;
 };
+
+export const { useGlobalState } = createGlobalState({
+  socket: undefined,
+  banner: {
+    level: "warning",
+    visible: false,
+    message: "",
+    ok: false,
+    cancel: false,
+  },
+  muWindow: {
+    history: [],
+    input: "",
+    output: [],
+    visible: false,
+  },
+  login: true,
+  token: "",
+  player: {},
+  user: "",
+  password: "",
+  title: "Welcome to UrsaMU",
+} as State);
