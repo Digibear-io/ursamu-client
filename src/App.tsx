@@ -18,7 +18,7 @@ const Global = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: "Roboto", sans-serif;
-    font-size: 1.02rem;
+    font-size: 1rem;
   };
 
   body {

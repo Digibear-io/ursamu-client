@@ -33,8 +33,8 @@ export const PullQuote = styled.p`
 `;
 
 const Name = styled.p`
-  font-size: 1.2rem;
-  font-weight: normal;
+  font-size: 1rem;
+  font-weight: bold;
   box-sizing: border-box;
 `;
 
@@ -43,9 +43,9 @@ const Caption = ({ req }: Props) => {
     <div style={{ width: "100%" }}>
       <p
         style={{
-          color: "rgba(255,255,255,.7)",
-          fontSize: "1.1rem",
-          fontWeight: "lighter",
+          color: "rgba(255,255,255,.75)",
+          fontSize: ".95rem",
+          fontWeight: "normal",
           paddingTop: "4px",
         }}
       >

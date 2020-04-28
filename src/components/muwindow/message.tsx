@@ -35,7 +35,6 @@ const Message = (props: Props) => (
   <div
     style={{
       boxSizing: "border-box",
-      paddingLeft: "76px",
       paddingRight: "16px",
       width: "100%",
     }}
@@ -44,10 +43,7 @@ const Message = (props: Props) => (
 );
 
 const GMContainer = styled.div`
-  padding-left: 76px;
-  padding-right: 16px;
-  padding-bottom: 16px;
-  padding-top: 16px;
+  padding: 16px;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   width: 100%;
@@ -70,8 +66,6 @@ type BlankProps = { alt?: Boolean };
 
 const Blank = styled.div`
   width: 80px;
-  background-color: ${(props: BlankProps) =>
-    props.alt ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0)"};
   margin-top: 4px;
   margin-bottom: 4px;
 `;
@@ -120,7 +114,7 @@ export const Avatar = (props: AvatarProps) => {
       );
     }
   } else {
-    return <Blank alt={props.alt} />;
+    return <Blank />;
   }
 };
 
@@ -132,20 +126,19 @@ const MsgBlock = styled.div`
 `;
 
 const Name = styled.p`
-  font-weight: normal;
-  font-size: 1.2rem;
+  font-weight: bold;
+  font-size: 1rem;
 `;
 
-const Caption = ({ req }: Props) => {
+const Caption = ({ req, visible }: Props) => {
   return (
     <div style={{ width: "100%" }}>
       <p
         style={{
           color: "rgba(255,255,255,.6)",
-          fontSize: "1.1rem",
+          fontSize: "1rem",
           fontWeight: "lighter",
-          paddingTop: "4px",
-          paddingBottom: "4px",
+          padding: "4px 0 4px 0",
         }}
       >
         {req.data.en.caption}
@@ -159,28 +152,17 @@ export default ({ req, visible = true, alt = false }: Props) => {
     <>
       {visible && <br />}
       <Container>
-        <div
-          style={{ display: "flex", flexDirection: "column", width: "100%" }}
-        >
-          <div
-            style={{
-              display: visible ? "flex" : "none",
-              flexDirection: "row",
-              width: "100%",
-            }}
-          >
-            <Avatar target={req.data.en} visible={visible} alt={alt} />
-            <MsgBlock>
-              {visible && <Name>{req.data.en.name}</Name>}
-              {visible && <Caption req={req} />}
-            </MsgBlock>
-          </div>
+        <Avatar target={req.data.en} visible={visible} alt={alt} />
+        <MsgBlock>
+          {visible && <Name>{req.data.en.name}</Name>}
+          {visible && <Caption req={req} />}
+
           {!alt ? (
             <Message req={req}></Message>
           ) : (
             <GameMessage req={req} alt={alt}></GameMessage>
           )}
-        </div>
+        </MsgBlock>
       </Container>
     </>
   );
