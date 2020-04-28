@@ -7,8 +7,8 @@ import PeopleIcon from "./people.svg";
 export const Navigaiton = styled.div`
   background-color: #383063;
   box-sizing: border-box;
-  padding: 0 8px 0 8px;
-  height: 48px;
+  padding: 0 16px 0 16px;
+  height: 60px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -22,7 +22,7 @@ export const Menu = styled.img`
 `;
 
 export const Title = styled.h1`
-  font-weight: normal;
+  font-weight: lighter;
   font-size: 20px;
   color: #f0f0f3;
   margin-right: auto;

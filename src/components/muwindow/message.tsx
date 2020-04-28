@@ -19,37 +19,44 @@ const Container = styled.div`
   padding-bottom: 4px;
 
   pre {
-    padding: 16px;
+    padding-top: 16px;
+    padding-right: 16px;
+
     white-space: pre-wrap;
     overflow: overlay;
-    border: 1px solid black;
-    background-color: rgba(0, 0, 0, 0.2);
     code {
       font-family: "Roboto Mono", monospace;
-      font-size: 14px;
+      font-size: 0.96rem;
     }
   }
 `;
 
 const Message = (props: Props) => (
   <div
-    style={{ paddingRight: "16px" }}
+    style={{
+      boxSizing: "border-box",
+      paddingLeft: "76px",
+      paddingRight: "16px",
+      width: "100%",
+    }}
     dangerouslySetInnerHTML={{ __html: props.req.message }}
   ></div>
 );
 
 const GMContainer = styled.div`
-  padding: 16px;
+  padding-left: 76px;
+  padding-right: 16px;
+  padding-bottom: 16px;
+  padding-top: 16px;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  border: 1px solid black;
-  margin-right: 16px;
-  margin-top: 4px;
-  margin-bottom: 4px;
+  width: 100%;
+  box-sizing: border-box;
 
   p {
     font-family: "Roboto Mono", monospace;
     font-size: 14px;
+    width: 100%;
   }
 `;
 
@@ -59,10 +66,14 @@ const GameMessage = (props: Props) => (
   ></GMContainer>
 );
 
+type BlankProps = { alt?: Boolean };
+
 const Blank = styled.div`
-  width: 45px;
-  margin-left: 16px;
-  margin-right: 16px;
+  width: 80px;
+  background-color: ${(props: BlankProps) =>
+    props.alt ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0)"};
+  margin-top: 4px;
+  margin-bottom: 4px;
 `;
 
 const AvatarImage = styled.img`
@@ -91,7 +102,7 @@ const Circle = styled.div`
   }
 `;
 
-type AvatarProps = { target: any; visible?: Boolean };
+type AvatarProps = { target: any; visible?: Boolean; alt?: Boolean };
 
 export const Avatar = (props: AvatarProps) => {
   if (props.visible) {
@@ -109,7 +120,7 @@ export const Avatar = (props: AvatarProps) => {
       );
     }
   } else {
-    return <Blank />;
+    return <Blank alt={props.alt} />;
   }
 };
 
@@ -121,7 +132,8 @@ const MsgBlock = styled.div`
 `;
 
 const Name = styled.p`
-  font-weight: bold;
+  font-weight: normal;
+  font-size: 1.2rem;
 `;
 
 const Caption = ({ req }: Props) => {
@@ -130,7 +142,7 @@ const Caption = ({ req }: Props) => {
       <p
         style={{
           color: "rgba(255,255,255,.6)",
-          fontSize: 14,
+          fontSize: "1.1rem",
           fontWeight: "lighter",
           paddingTop: "4px",
           paddingBottom: "4px",
@@ -147,16 +159,28 @@ export default ({ req, visible = true, alt = false }: Props) => {
     <>
       {visible && <br />}
       <Container>
-        <Avatar target={req.data.en} visible={visible} />
-        <MsgBlock>
-          {visible && <Name>{req.data.en.name}</Name>}
-          {visible && <Caption req={req} />}
+        <div
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+        >
+          <div
+            style={{
+              display: visible ? "flex" : "none",
+              flexDirection: "row",
+              width: "100%",
+            }}
+          >
+            <Avatar target={req.data.en} visible={visible} alt={alt} />
+            <MsgBlock>
+              {visible && <Name>{req.data.en.name}</Name>}
+              {visible && <Caption req={req} />}
+            </MsgBlock>
+          </div>
           {!alt ? (
             <Message req={req}></Message>
           ) : (
             <GameMessage req={req} alt={alt}></GameMessage>
           )}
-        </MsgBlock>
+        </div>
       </Container>
     </>
   );

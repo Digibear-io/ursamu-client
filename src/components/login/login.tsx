@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import bg from "./cyberpunk-bg.jpg";
-import { Modal, Input, Button } from "../forms/forms";
+import { Input, Button } from "../forms/forms";
 import logo from "./ursa-logo.svg";
 import { useGlobalState } from "../../store/context";
 
@@ -31,6 +31,7 @@ const BgGradient = styled.div`
 `;
 
 const Title = styled.h1`
+  font-weight: bold;
   width: 100%;
   font-size: 48px;
   color: #f0f0f3;
@@ -64,28 +65,48 @@ export default ({ onConnect, onCreate }: Props) => {
   return (
     <Background visible={visible}>
       <BgImage src={bg} alt="background" />
-      <BgGradient></BgGradient>
-      <Modal>
-        <img src={logo} alt="logo" />
-        <Title>URSAMU</Title>
-        <Subtitle>A Modern MUSH Server</Subtitle>
-        <Input
-          value={user}
-          placeholder="Character"
-          type="text"
-          onChange={(e) => setUser((v) => e.target.value)}
-        />
-        <Input
-          value={password}
-          placeholder="Password"
-          type="password"
-          onChange={(e) => setPassword((v) => e.target.value)}
-        />
-        <ButtonContainer>
-          <Button onClick={onConnect}>CONNECT</Button>
-          <Button onClick={onCreate}>CREATE</Button>
-        </ButtonContainer>
-      </Modal>
+      <BgGradient />
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: "50%",
+            minWidth: "300px",
+            display: "Flex",
+            flexDirection: "column",
+            textAlign: "center",
+          }}
+        >
+          <img src={logo} alt="logo" />
+          <Title>URSAMU</Title>
+          <Subtitle>A Modern MUSH Server</Subtitle>
+          <Input
+            value={user}
+            placeholder="Character"
+            type="text"
+            onChange={(e) => setUser((v) => e.target.value)}
+          />
+          <Input
+            value={password}
+            placeholder="Password"
+            type="password"
+            onChange={(e) => setPassword((v) => e.target.value)}
+          />
+          <ButtonContainer>
+            <Button onClick={onConnect}>CONNECT</Button>
+            <Button onClick={onCreate}>CREATE</Button>
+          </ButtonContainer>
+        </div>
+      </div>
     </Background>
   );
 };

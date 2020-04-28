@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React from "react";
 import { Payload } from "../../client/connection";
 import { Avatar } from "./message";
-import { useGlobalState } from "../../store/context";
 
 type Props = {
   req: Payload;
@@ -20,7 +19,7 @@ const Container = styled.div`
 `;
 
 export const PullQuote = styled.p`
-  border-left: 3px solid #989ebb;
+  border-left: 2px solid #989ebb;
   box-sizing: border-box;
   margin-left: 18px;
   margin-right: 16px;
@@ -29,15 +28,13 @@ export const PullQuote = styled.p`
   padding-left: 8px;
   padding-right: 16px;
   padding-left: 16px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-
-  background-color: rgba(0, 0, 0, 0.2);
+  padding-top: 8px;
+  padding-bottom: 8px;
 `;
 
 const Name = styled.p`
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.2rem;
+  font-weight: normal;
   box-sizing: border-box;
 `;
 
@@ -46,13 +43,13 @@ const Caption = ({ req }: Props) => {
     <div style={{ width: "100%" }}>
       <p
         style={{
-          color: "rgba(255,255,255,.6)",
-          fontSize: 16,
+          color: "rgba(255,255,255,.7)",
+          fontSize: "1.1rem",
           fontWeight: "lighter",
           paddingTop: "4px",
         }}
       >
-        {req.data.tar.caption}
+        {req.data.look.tar.caption}
       </p>
     </div>
   );
@@ -68,7 +65,7 @@ const NameBlock = ({ req }: Props) => {
         backgroundColor: "rgba(0, 0, 0, 0.3)",
       }}
     >
-      {req.data.tar.type !== "room" ? (
+      {req.data.look.tar.type !== "room" ? (
         <div
           style={{
             display: "flex",
@@ -77,14 +74,14 @@ const NameBlock = ({ req }: Props) => {
             paddingLeft: 0,
           }}
         >
-          <Avatar target={req.data.tar} visible={true} />
+          <Avatar target={req.data.look.tar} visible={true} />
           <div
             style={{
               display: "flex",
               flexDirection: "column",
             }}
           >
-            <Name>{req.data.tar.name}</Name>
+            <Name>{req.data.look.tar.name}</Name>
             <Caption req={req} />
           </div>
         </div>
@@ -96,7 +93,7 @@ const NameBlock = ({ req }: Props) => {
             paddingLeft: "16px",
           }}
         >
-          <Name>{req.data.tar.name}</Name>
+          <Name>{req.data.look.tar.name}</Name>
           <Caption req={req} />
         </div>
       )}
@@ -112,7 +109,7 @@ const ImageFrame = ({ req }: Props) => (
       flexDirection: "column-reverse",
       width: "100%",
       height: "30vh",
-      backgroundImage: `url(${req.data.tar.image})`,
+      backgroundImage: `url(${req.data.look.tar.image})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
       marginBottom: "16px",
@@ -134,7 +131,11 @@ export default ({ req, buffer = false }: Props) => (
   <>
     {buffer && <br />}
     <Container>
-      {req.data.tar.image ? <ImageFrame req={req} /> : <NameBlock req={req} />}
+      {req.data.look.tar.image ? (
+        <ImageFrame req={req} />
+      ) : (
+        <NameBlock req={req} />
+      )}
       <PullQuote dangerouslySetInnerHTML={{ __html: req.message }}></PullQuote>
     </Container>
   </>

@@ -25,6 +25,10 @@ export const Input = styled.input`
   padding-left: 16px;
   padding-right: 16px;
   box-sizing: border-box;
+  ::placeholder {
+    font-size: 1rem;
+    font-weight: lighter;
+  }
 
   width: ${(props) => props.width || "100%"};
 `;

@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   overflow-anchor: none;
   justify-content: flex-end;
-  margin-top: 48px;
+  margin-top: 60px;
   width: 100%;
   height: 91vh;
 `;
