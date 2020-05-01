@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import React from "react";
+import React, { PropsWithChildren, ComponentProps } from "react";
 import { Payload } from "../../client/connection";
 import { Avatar } from "./message";
 
 type Props = {
   req: Payload;
   buffer?: boolean;
+  style?: any;
 };
 
 const Container = styled.div`
@@ -108,7 +109,7 @@ const ImageFrame = ({ req }: Props) => (
       flexGrow: 1,
       flexDirection: "column-reverse",
       width: "100%",
-      height: "30vh",
+      height: "40vh",
       backgroundImage: `url(${req.data.look.tar.image})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
@@ -134,7 +135,7 @@ export default ({ req, buffer = false }: Props) => (
       {req.data.look.tar.image ? (
         <ImageFrame req={req} />
       ) : (
-        <NameBlock req={req} />
+        <NameBlock req={req} style={{ paddingTop: " 16px" }} />
       )}
       <PullQuote dangerouslySetInnerHTML={{ __html: req.message }}></PullQuote>
     </Container>

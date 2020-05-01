@@ -9,34 +9,14 @@ import { Payload } from "./client/connection";
 import io from "socket.io-client";
 import Message from "./components/muwindow/message";
 import Desc from "./components/muwindow/desc";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import { ThemeProvider, Paper, CssBaseline } from "@material-ui/core";
 
-/**
- * Generate Global CSS Styles
- */
-const Global = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    font-family: "Roboto", sans-serif;
-    font-size: 1rem;
-  };
-
-  body {
-    background-color: #10083B;
-  }
-
-  blockquote {
-    border-left: 3px solid #989ebb;
-    padding-left: 8px;
-  }
-
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-`;
+const theme = createMuiTheme({
+  palette: {
+    type: "dark",
+  },
+});
 
 export default () => {
   const [, setSocket] = useGlobalState("socket");
@@ -161,12 +141,12 @@ export default () => {
   };
 
   return (
-    <Wrapper>
-      <Global />
-      <Navigation title={title} />
-      <Banner />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Navigation />
       <Login onConnect={() => handleConn()} onCreate={() => handleConn(true)} />
+
       <MuWindow />
-    </Wrapper>
+    </ThemeProvider>
   );
 };
